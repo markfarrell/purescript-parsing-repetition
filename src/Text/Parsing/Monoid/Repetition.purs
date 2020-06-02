@@ -2,11 +2,15 @@ module Text.Parsing.Monoid.Repetition
   ( until
   , exact
   , least
+  , greedy
   ) where
 
 import Prelude
 
+import Data.Maybe (Maybe(..))
 import Data.Maybe as M
+
+import Data.Tuple (Tuple(..))
 
 import Text.Parsing.Parser (ParserT, fail)
 
@@ -47,3 +51,14 @@ exact n = \p -> do
   case M.isJust y of
     true  -> fail $ "Number of repetitions must be " <> show n <> "."
     false -> pure x
+
+-- | Consumes the current input with a parser `p` as many times as successful.
+-- | Produces a pair of the number of successful repetitions of `p`, and the accumulated result.
+greedy :: forall a m b. Monad m => Monoid b => ParserT a m b -> ParserT a m (Tuple Int b)
+greedy = \p -> many' 0 mempty p
+  where
+    many' n acc  = \p -> do
+      x <- C.optionMaybe p
+      case x of
+        (Nothing) -> pure $ Tuple n acc 
+        (Just y)  -> many' (n + 1) (acc <> y) p
