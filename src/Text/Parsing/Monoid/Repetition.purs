@@ -3,6 +3,7 @@ module Text.Parsing.Monoid.Repetition
   , exact
   , least
   , greedy
+  , many
   ) where
 
 import Prelude
@@ -11,6 +12,7 @@ import Data.Maybe (Maybe(..))
 import Data.Maybe as M
 
 import Data.Tuple (Tuple(..))
+import Data.Tuple as T
 
 import Text.Parsing.Parser (ParserT, fail)
 
@@ -54,6 +56,7 @@ exact n = \p -> do
 
 -- | Consumes the current input with a parser `p` as many times as successful.
 -- | Produces a pair of the number of successful repetitions of `p`, and the accumulated result.
+-- | Not guaranteed to be stack-safe for large input.
 greedy :: forall a m b. Monad m => Monoid b => ParserT a m b -> ParserT a m (Tuple Int b)
 greedy = \p -> many' 0 mempty p
   where
@@ -62,3 +65,8 @@ greedy = \p -> many' 0 mempty p
       case x of
         (Nothing) -> pure $ Tuple n acc 
         (Just y)  -> many' (n + 1) (acc <> y) p
+
+-- | Consumes the current input with a parser `p` as many times as successful.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many :: forall a m b. Monad m => Monoid b => ParserT a m b -> ParserT a m b
+many p = T.snd <$> greedy p

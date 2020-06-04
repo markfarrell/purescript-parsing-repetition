@@ -3,6 +3,7 @@ module Text.Parsing.Applicative.Repetition
   , exact
   , least
   , greedy
+  , many
   , most
   , range
   ) where
@@ -33,8 +34,14 @@ exact n p = R.exact n (pure <$> p)
 
 -- | Consumes the current input with a parser `p` as many times as successful.
 -- | Produces a pair of the number of successful repetitions of `p`, and the accumulated result.
+-- | Not guaranteed to be stack-safe for large input.
 greedy :: forall m a f b. Monad m => Applicative f => Monoid (f b) => ParserT a m b -> ParserT a m (Tuple Int (f b))
 greedy p = R.greedy (pure <$> p)
+
+-- | Consumes the current input with a parser `p` as many times as successful.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many :: forall m a f b. Monad m => Applicative f => Monoid (f b) => ParserT a m b -> ParserT a m (f b)
+many p = R.many (pure <$> p)
 
 -- | Consumes the current parse input with a parser `p`, with `m` greedy repetitions of `p`.
 -- | Fails if `m` is greater than the constraint `n` passed to the function. 
