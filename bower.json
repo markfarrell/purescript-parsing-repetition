@@ -1,5 +1,11 @@
 {
   "name": "purescript-parsing-repetition",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {                                                           
+    "type": "git",                                                          
+    "url": "https://github.com/markfarrell/purescript-parsing-expect.git"   
+  },
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,10 +16,10 @@
     "purescript-prelude": "^4.1.1",
     "purescript-console": "^4.4.0",
     "purescript-effect": "^2.0.1",
-    "purescript-parsing": "^5.0.3",
-    "purescript-parsing-test": "git@github.com:markfarrell/purescript-parsing-expect.git"
+    "purescript-parsing": "^5.0.3"
   },
   "devDependencies": {
+    "purescript-parsing-expect": "git@github.com:markfarrell/purescript-parsing-expect.git",
     "purescript-psci-support": "^4.0.0"
   }
 }
