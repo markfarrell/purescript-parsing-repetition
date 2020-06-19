@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": {                                                           
     "type": "git",                                                          
-    "url": "https://github.com/markfarrell/purescript-parsing-expect.git"   
+    "url": "https://github.com/markfarrell/purescript-parsing-repetition.git"   
   },
   "ignore": [
     "**/.*",
@@ -19,7 +19,7 @@
     "purescript-parsing": "^5.0.3"
   },
   "devDependencies": {
-    "purescript-parsing-expect": "markfarrell/purescript-parsing-expect#^0.0.1",
+    "purescript-parsing-expect": "markfarrell/purescript-parsing-expect",
     "purescript-psci-support": "^4.0.0"
   }
 }
