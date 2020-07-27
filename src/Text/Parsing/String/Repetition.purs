@@ -4,6 +4,7 @@ module Text.Parsing.String.Repetition
   , exact
   , greedy
   , many
+  , many1
   , most
   , range
   ) where
@@ -33,7 +34,7 @@ until p q = fromArray <$> R.until p q
 -- | Consumes the current parse input with a parser `p`, with `n` repetitions of `p`.
 -- | Does not check if the remaining parse input can be moreover parsed with `p`.
 least :: forall a m. Monad m => Int -> ParserT a m Char -> ParserT a m String
-least n p = fromArray <$> R.least n p 
+least n p = fromArray <$> R.least n p
 
 -- | Consumes the current parse input with a parser `p`, with `n` repetitions of `p`.
 -- | Fails if the remaining parse input can be moreover be parsed with `p`.
@@ -55,8 +56,13 @@ greedy p = do
 many :: forall a m. Monad m => ParserT a m Char -> ParserT a m String
 many p = fromArray <$> R.many p
 
+-- | Consumes the current input with a parser `p` as many times as successful, with at least once occurrence of `p`.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many1 :: forall a m. Monad m => ParserT a m Char -> ParserT a m String
+many1 p = fromArray <$> R.many1 p
+
 -- | Consumes the current parse input with a parser `p`, with `m` greedy repetitions of `p`.
--- | Fails if `m` is greater than the constraint `n` passed to the function. 
+-- | Fails if `m` is greater than the constraint `n` passed to the function.
 most :: forall a m. Monad m => Int -> ParserT a m Char -> ParserT a m String
 most n p = fromArray <$> R.most n p
 

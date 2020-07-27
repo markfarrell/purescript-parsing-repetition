@@ -4,6 +4,7 @@ module Text.Parsing.Monoid.Repetition
   , least
   , greedy
   , many
+  , many1
   ) where
 
 import Prelude
@@ -63,10 +64,18 @@ greedy = \p -> many' 0 mempty p
     many' n acc  = \p -> do
       x <- C.optionMaybe p
       case x of
-        (Nothing) -> pure $ Tuple n acc 
+        (Nothing) -> pure $ Tuple n acc
         (Just y)  -> many' (n + 1) (acc <> y) p
 
 -- | Consumes the current input with a parser `p` as many times as successful.
 -- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
 many :: forall a m b. Monad m => Monoid b => ParserT a m b -> ParserT a m b
 many p = T.snd <$> greedy p
+
+-- | Consumes the current input with a parser `p` as many times as successful, with at least one occurrence of `p`.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many1 :: forall a m b. Monad m => Monoid b => ParserT a m b -> ParserT a m b
+many1 p = do
+  x <- p
+  y <- many p
+  pure $ x <> y

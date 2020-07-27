@@ -4,6 +4,7 @@ module Text.Parsing.Array.Repetition
   , least
   , greedy
   , many
+  , many1
   , most
   , range
   ) where
@@ -47,8 +48,16 @@ greedy p = do
 many :: forall m a b. Monad m => ParserT a m b -> ParserT a m (Array b)
 many p = A.fromFoldable <$> L.many p
 
+-- | Consumes the current input with a parser `p` as many times as successful, with at least one occurrence of `p`.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many1 :: forall m a b. Monad m => ParserT a m b -> ParserT a m (Array b)
+many1 p = do
+  x <- pure <$> p
+  y <- many p
+  pure $ x <> y
+
 -- | Consumes the current parse input with a parser `p`, with `m` greedy repetitions of `p`.
--- | Fails if `m` is greater than the constraint `n` passed to the function. 
+-- | Fails if `m` is greater than the constraint `n` passed to the function.
 most :: forall a m b. Monad m => Int -> ParserT a m b -> ParserT a m (Array b)
 most = R.most
 

@@ -4,6 +4,7 @@ module Text.Parsing.Applicative.Repetition
   , least
   , greedy
   , many
+  , many1
   , most
   , range
   ) where
@@ -43,8 +44,13 @@ greedy p = R.greedy (pure <$> p)
 many :: forall m a f b. Monad m => Applicative f => Monoid (f b) => ParserT a m b -> ParserT a m (f b)
 many p = R.many (pure <$> p)
 
+-- | Consumes the current input with a parser `p` as many times as successful, with at least one occurrence of `p`.
+-- | Produces the accumulated result, without the guarantee of being stack-safe for large input.
+many1 :: forall m a f b. Monad m => Applicative f => Monoid (f b) => ParserT a m b -> ParserT a m (f b)
+many1 p = R.many1 (pure <$> p)
+
 -- | Consumes the current parse input with a parser `p`, with `m` greedy repetitions of `p`.
--- | Fails if `m` is greater than the constraint `n` passed to the function. 
+-- | Fails if `m` is greater than the constraint `n` passed to the function.
 most :: forall m a f b. Monad m => Applicative f => Monoid (f b) => Int -> ParserT a m b -> ParserT a m (f b)
 most n p = case n > 0 of
  false -> exact 0 p
@@ -53,7 +59,7 @@ most n p = case n > 0 of
    m <- pure $ T.fst w
    x <- pure $ T.snd w
    case m > n of
-     true  -> fail $ "Number of repetitions must be at most " <> show n <> "." 
+     true  -> fail $ "Number of repetitions must be at most " <> show n <> "."
      false -> pure x
 
 -- | Consumes the current parse input with a parser `p`, with at *least* `min` and at *most* `max >= min` repetitions of `p`.
