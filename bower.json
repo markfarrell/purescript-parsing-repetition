@@ -16,10 +16,10 @@
     "purescript-prelude": "^4.1.1",
     "purescript-console": "^4.4.0",
     "purescript-effect": "^2.0.1",
-    "purescript-parsing": "^5.0.3"
+    "purescript-parsing": "^5.0.3",
+    "purescript-parsing-expect": "markfarrell/purescript-parsing-expect"
   },
   "devDependencies": {
-    "purescript-parsing-expect": "markfarrell/purescript-parsing-expect",
     "purescript-psci-support": "^4.0.0"
   }
 }
