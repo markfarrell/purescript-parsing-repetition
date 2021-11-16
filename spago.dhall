@@ -4,6 +4,7 @@ You can edit this file as you like.
 -}
 { name = "parsing-repetition"
 , license = "MIT"
+, repository = "https://github.com/markfarrell/purescript-parsing-repetition"
 , dependencies =
   [ "arrays"
   , "effect"
