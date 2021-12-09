@@ -1,5 +1,6 @@
 {
     "name": "purescript-parsing-repetition",
+    "keywords": ["pursuit-deprecated"],
     "license": [
         "MIT"
     ],
