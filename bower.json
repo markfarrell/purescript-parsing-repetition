@@ -1,19 +1,22 @@
 {
-    "name": "purescript-parsing-repetition",
-    "keywords": ["pursuit-deprecated"],
-    "license": [
-        "MIT"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/markfarrell/purescript-parsing-repetition"
-    },
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "output"
-    ],
-    "dependencies": {
-    }
+  "name": "purescript-parsing-repetition",
+  "keywords": [
+    "pursuit-deprecated"
+  ],
+  "license": [
+    "MIT"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markfarrell/purescript-parsing-repetition"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-parsing": "^7.0.1"
+  }
 }
