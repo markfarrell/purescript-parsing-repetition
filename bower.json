@@ -14,16 +14,5 @@
         "output"
     ],
     "dependencies": {
-        "purescript-arrays": "^v6.0.1",
-        "purescript-effect": "^v3.0.0",
-        "purescript-foldable-traversable": "^v5.0.1",
-        "purescript-lists": "^v6.0.1",
-        "purescript-maybe": "^v5.0.0",
-        "purescript-parsing": "^v7.0.0",
-        "purescript-parsing-expect": "https://github.com/markfarrell/purescript-parsing-expect.git#v0.0.3",
-        "purescript-prelude": "^v5.0.1",
-        "purescript-psci-support": "^v5.0.0",
-        "purescript-strings": "^v5.0.0",
-        "purescript-tuples": "^v6.0.1"
     }
 }
